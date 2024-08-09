@@ -1,2 +1,2 @@
 # AzureDevOps
-Repo for Azure DevOps learning and tutorials
+Repo for Azure related DevOps learning and tutorials
