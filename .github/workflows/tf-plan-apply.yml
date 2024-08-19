@@ -43,11 +43,11 @@ jobs:
 
     # Validate terraform files
     - name: Terraform Validate
-      run: terraform validate
+      run: terraform validate -chdir="./terraform"
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
+      run: terraform init -chdir="./terraform"
 
     # Checks that all Terraform configuration files adhere to a canonical format
     # Will fail the build if not
@@ -60,7 +60,7 @@ jobs:
       id: tf-plan
       run: |
         export exitcode=0
-        terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+        terraform plan -chdir="./terraform" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
         
