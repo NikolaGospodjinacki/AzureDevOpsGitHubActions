@@ -24,6 +24,7 @@ https://www.crayon.com/pl/resources/insights/manage-your-secrets-with-terraform-
 https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment#creating-an-environment
 https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment#environment-protection-rules
 https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=openid%2Caspnetcore
+https://www.youtube.com/watch?v=yfBtjLxn_6k (github actions brief overview/jumpstart)
 
 
 
@@ -97,6 +98,13 @@ https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=o
        2. Add user to App owners (anyone who should be able to edit this app connection)
        3. https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect   (Go through all of these)
          1. Add appropriate permissions for both apps (contributor to subscription and Reader and Data Access for terraform state storage account)
-         2. Configure a federate identity cred to trust kotens issued by GitHub actions
+         2. Configure a federate identity cred to trust tokens issued by GitHub actions
          https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation-create-trust?pivots=identity-wif-apps-methods-azp
-         3. 
+         Name for credentials
+         github-actions-terraform-token-euw-readwrite
+         github-actions-terraform-token-euw-readonly1
+         github-actions-terraform-token-euw-readonly2
+         3. Add github secrets to repository for read-only identity
+         https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-encrypted-secrets-for-a-repository
+         4. Add secret on production environment using read-write identity (AZURE_CLIENT_ID)
+         note: environment secrets overwrite repository secrets
