@@ -12,6 +12,9 @@ jobs:
   terraform-unit-tests:
     name: 'Terraform Unit Tests'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
     
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -28,8 +31,8 @@ jobs:
     - name: PWD
       run: pwd
     
-    - name: Goback
-      run: cd ..
+    # - name: Goback
+    #   run: cd ./terraform
 
     - name: LS
       run: ls -l
