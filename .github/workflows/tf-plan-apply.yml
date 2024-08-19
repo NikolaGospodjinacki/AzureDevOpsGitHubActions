@@ -41,8 +41,26 @@ jobs:
       with:
         terraform_wrapper: false
     
+    - name: pwd
+      run: pwd
+
     - name: Change Directory
       run: cd terraform
+
+    - name: pwd
+      run: pwd
+
+    - name: Change Directory
+      run: cd ..
+    
+    - name: pwd
+      run: pwd
+
+    - name: Change Directory
+      run: cd terraform
+
+    - name: pwd
+      run: pwd
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
