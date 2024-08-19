@@ -45,7 +45,7 @@ jobs:
       run: pwd
 
     - name: Change Directory
-      run: cd terraform
+      run: cd ./terraform
 
     - name: pwd
       run: pwd
