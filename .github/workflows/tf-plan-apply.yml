@@ -44,21 +44,6 @@ jobs:
       with:
         terraform_wrapper: false
 
-    - name: LS
-      run: ls -l
-    
-    - name: PWD
-      run: pwd
-    
-    - name: Goback
-      run: cd ./terraform
-
-    - name: LS
-      run: ls -l
-    
-    - name: PWD
-      run: pwd
-
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
