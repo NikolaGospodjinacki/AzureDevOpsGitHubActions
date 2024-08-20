@@ -150,6 +150,7 @@ jobs:
     - name: Download Terraform Plan
       uses: actions/download-artifact@v4
       with:
+        path: ./terraform
         name: tfplan
 
     # Terraform Apply
