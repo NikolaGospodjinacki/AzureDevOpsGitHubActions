@@ -29,7 +29,7 @@ variable "storage_private_dns_zone_name" {
 #############################################################################
 
 resource "azurerm_storage_account" "st-proto-weu-01" {
-  name                       = "st-${var.project}-${var.environment}-${var.region}-01"
+  name                       = "st${var.project}${var.environment}${var.region}01"
   resource_group_name        = var.resource_group
   location                   = var.region
   account_tier               = "Standard"
