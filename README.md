@@ -25,7 +25,11 @@ https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managi
 https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment#environment-protection-rules
 https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=openid%2Caspnetcore
 https://www.youtube.com/watch?v=yfBtjLxn_6k (github actions brief overview/jumpstart)
-
+https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
+https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation-create-trust?pivots=identity-wif-apps-methods-azp
+https://medium.com/@phaubus/azure-private-endpoint-storage-account-use-case-712823001a2f
+https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/private-link-and-dns-integration-at-scale
+https://github.com/epomatti/azure-terraform-private-endpoints
 
 
 1. Install Azure CLI (ubuntu commands below)
