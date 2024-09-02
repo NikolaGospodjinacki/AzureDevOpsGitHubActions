@@ -70,7 +70,7 @@ resource "azurerm_linux_web_app" "app-proto-weu-01" {
     always_on = true
 
     application_stack {
-      docker_image_name   = var.appservice_docker_image_and_tag
+      docker_image_name = var.appservice_docker_image_and_tag
     }
   }
 
