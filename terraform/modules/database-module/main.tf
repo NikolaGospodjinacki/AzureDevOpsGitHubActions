@@ -57,7 +57,7 @@ resource "azurerm_cosmosdb_account" "cosmos-proto-weu-01" {
   is_virtual_network_filter_enabled = true
   network_acl_bypass_ids            = []
 
-  enable_free_tier = var.cosmos_enable_free_tier
+  free_tier_enabled = var.cosmos_enable_free_tier
 
   capabilities {
     name = "EnableMongo"
