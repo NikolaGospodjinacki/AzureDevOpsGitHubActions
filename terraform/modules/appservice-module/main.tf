@@ -17,11 +17,7 @@ variable "appservice_sku_name" {
   type = string
 }
 
-variable "appservice_docker_image" {
-  type = string
-}
-
-variable "appservice_docker_image_tag" {
+variable "appservice_docker_image_and_tag" {
   type = string
 }
 
@@ -74,8 +70,7 @@ resource "azurerm_linux_web_app" "app-proto-weu-01" {
     always_on = true
 
     application_stack {
-      docker_image     = var.appservice_docker_image
-      docker_image_tag = var.appservice_docker_image_tag
+      docker_image_name   = var.appservice_docker_image_and_tag
     }
   }
 

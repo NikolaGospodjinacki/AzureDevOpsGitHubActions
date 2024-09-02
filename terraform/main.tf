@@ -42,18 +42,12 @@ variable "appservice_docker_registry_server_url" {
   default     = "https://index.docker.io"
 }
 
-variable "appservice_docker_image" {
+variable "appservice_docker_image_and_tag" {
   type        = string
-  default     = "epomatti/big-azure-terraform-showcase"
+  default     = "epomatti/big-azure-terraform-showcase:latest"
   description = "free docker image being pulled to showcase the project"
+  #Change to version number from 'latest' for production use cases
 }
-
-variable "appservice_docker_image_tag" {
-  type    = string
-  default = "latest"
-  #Change to version number for production use cases
-}
-
 
 #Redis cache variables
 variable "redis_plan_sku_name" {
@@ -112,8 +106,7 @@ module "appservice-module" {
   environment                           = var.environment
   appservice_sku_name                   = var.appservice_sku_name
   appservice_docker_registry_server_url = var.appservice_docker_registry_server_url
-  appservice_docker_image               = var.appservice_docker_image
-  appservice_docker_image_tag           = var.appservice_docker_image_tag
+  appservice_docker_image_and_tag       = var.appservice_docker_image_and_tag
   cosmos_prim_connection_string         = module.database-module.cosmos_prim_connection_string
   cosmos_sec_connection_string          = module.database-module.cosmos_sec_connection_string
   api_subnet_id                         = module.networking-module.api_subnet_id
