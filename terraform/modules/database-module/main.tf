@@ -93,6 +93,7 @@ resource "azurerm_cosmosdb_account" "cosmos-proto-weu-01" {
     type = "Periodic"
     storage_redundancy = "Local"
     interval_in_minutes = "1440"
+    retention_in_hours = "8"
   }
 
 }
