@@ -52,10 +52,6 @@ resource "azurerm_subnet" "snet-proto-api-neu-01" {
   virtual_network_name              = azurerm_virtual_network.vnet-proto-neu-01.name
   address_prefixes                  = ["10.100.10.96/29"]
   private_endpoint_network_policies = "Enabled"
-
-  delegation {
-    name = "app-delegation"
-  }
 }
 
 resource "azurerm_subnet" "snet-proto-storage-neu-01" {
