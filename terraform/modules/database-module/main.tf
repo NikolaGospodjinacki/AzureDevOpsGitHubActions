@@ -52,7 +52,10 @@ resource "azurerm_cosmosdb_account" "cosmos-proto-neu-01" {
   public_network_access_enabled     = false
   is_virtual_network_filter_enabled = true
   network_acl_bypass_ids            = []
-
+  // set ip_range_filter to allow azure services (0.0.0.0) and azure portal.
+  // https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-firewall#allow-requests-from-the-azure-portal
+  // https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-firewall#allow-requests-from-global-azure-datacenters-or-other-sources-within-azure
+  ip_range_filter = "0.0.0.0,104.42.195.92,40.76.54.131,52.176.6.30,52.169.50.45,52.187.184.26"
   free_tier_enabled = var.cosmos_enable_free_tier
 
   capabilities {
