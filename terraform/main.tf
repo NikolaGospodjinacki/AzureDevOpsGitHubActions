@@ -6,7 +6,7 @@ variable "project" {
 
 variable "region" {
   type        = string
-  default     = "westeurope"
+  default     = "northeurope"
   description = "Azure region where the resources are going to be deployed"
 }
 
@@ -64,7 +64,7 @@ variable "redis_plan_capacity" {
 #############################################################################
 #############################################################################
 
-resource "azurerm_resource_group" "rg-proto-weu-01" {
+resource "azurerm_resource_group" "rg-proto-neu-01" {
   location = var.region
   name     = "rg-${var.project}-${var.environment}-${var.region}-01"
 }
@@ -74,7 +74,7 @@ module "networking-module" {
   project        = var.project
   region         = var.region
   environment    = var.environment
-  resource_group = azurerm_resource_group.rg-proto-weu-01.name
+  resource_group = azurerm_resource_group.rg-proto-neu-01.name
 }
 
 
@@ -88,7 +88,7 @@ module "database-module" {
   cosmos_subnet_id             = module.networking-module.cosmos_subnet_id
   cosmos_private_dns_zone_id   = module.networking-module.cosmos_private_dns_zone_id
   cosmos_private_dns_zone_name = module.networking-module.cosmos_private_dns_zone_name
-  resource_group               = azurerm_resource_group.rg-proto-weu-01.name
+  resource_group               = azurerm_resource_group.rg-proto-neu-01.name
 }
 
 
@@ -106,7 +106,7 @@ module "appservice-module" {
   int_api_subnet_id                     = module.networking-module.int_api_subnet_id
   api_private_dns_zone_id               = module.networking-module.api_private_dns_zone_id
   api_private_dns_zone_name             = module.networking-module.api_private_dns_zone_name
-  resource_group                        = azurerm_resource_group.rg-proto-weu-01.name
+  resource_group                        = azurerm_resource_group.rg-proto-neu-01.name
 }
 
 
@@ -121,7 +121,7 @@ module "redis-module" {
   redis_plan_family           = var.redis_plan_family
   redis_private_dns_zone_id   = module.networking-module.redis_private_dns_zone_id
   redis_private_dns_zone_name = module.networking-module.redis_private_dns_zone_name
-  resource_group              = azurerm_resource_group.rg-proto-weu-01.name
+  resource_group              = azurerm_resource_group.rg-proto-neu-01.name
 }
 
 
@@ -133,7 +133,7 @@ module "storage-module" {
   storage_subnet_id             = module.networking-module.storage_subnet_id
   storage_private_dns_zone_id   = module.networking-module.storage_private_dns_zone_id
   storage_private_dns_zone_name = module.networking-module.storage_private_dns_zone_name
-  resource_group                = azurerm_resource_group.rg-proto-weu-01.name
+  resource_group                = azurerm_resource_group.rg-proto-neu-01.name
 }
 
 
@@ -143,5 +143,5 @@ module "loganalytics-module" {
   region         = var.region
   environment    = var.environment
   api_app_id     = module.appservice-module.api_app_id
-  resource_group = azurerm_resource_group.rg-proto-weu-01.name
+  resource_group = azurerm_resource_group.rg-proto-neu-01.name
 }

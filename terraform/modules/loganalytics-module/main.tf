@@ -21,7 +21,7 @@ variable "api_app_id" {
 #############################################################################
 
 # Log Analytics
-resource "azurerm_log_analytics_workspace" "log-proto-weu-01" {
+resource "azurerm_log_analytics_workspace" "log-proto-neu-01" {
   name                = "log-${var.project}-${var.environment}-${var.region}-01"
   location            = var.region
   resource_group_name = var.resource_group
@@ -29,10 +29,10 @@ resource "azurerm_log_analytics_workspace" "log-proto-weu-01" {
   retention_in_days   = 30
 }
 
-resource "azurerm_monitor_diagnostic_setting" "monitor-proto-weu-01" {
+resource "azurerm_monitor_diagnostic_setting" "monitor-proto-neu-01" {
   name                       = "${var.project}-${var.environment}-${var.region}-01 API Application Logs"
   target_resource_id         = var.api_app_id
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.log-proto-weu-01.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.log-proto-neu-01.id
 
   enabled_log {
     category = "AppServiceConsoleLogs"

@@ -40,7 +40,7 @@ variable "redis_private_dns_zone_name" {
 #############################################################################
 #############################################################################
 
-resource "azurerm_redis_cache" "redis-proto-redis-weu-01" {
+resource "azurerm_redis_cache" "redis-proto-redis-neu-01" {
   name                          = "redis-${var.project}-${var.environment}-${var.region}-01"
   location                      = var.region
   resource_group_name           = var.resource_group
@@ -54,7 +54,7 @@ resource "azurerm_redis_cache" "redis-proto-redis-weu-01" {
 
 
 #Private endpoint
-resource "azurerm_private_endpoint" "pe-proto-redis-weu-01" {
+resource "azurerm_private_endpoint" "pe-proto-redis-neu-01" {
   name                = "pe-${var.project}-redis-${var.environment}-${var.region}-01"
   location            = var.region
   resource_group_name = var.resource_group
@@ -69,16 +69,16 @@ resource "azurerm_private_endpoint" "pe-proto-redis-weu-01" {
 
   private_service_connection {
     name                           = "peconn-${var.project}-redis-${var.environment}-${var.region}-01"
-    private_connection_resource_id = azurerm_redis_cache.redis-proto-redis-weu-01.id
+    private_connection_resource_id = azurerm_redis_cache.redis-proto-redis-neu-01.id
     subresource_names              = ["redisCache"]
     is_manual_connection           = false
   }
 }
 
-resource "azurerm_private_dns_a_record" "dnsa-proto-redis-weu-01" {
+resource "azurerm_private_dns_a_record" "dnsa-proto-redis-neu-01" {
   name                = "dnsa-${var.project}-redis-${var.environment}-${var.region}-01"
   zone_name           = var.redis_private_dns_zone_name
   resource_group_name = var.resource_group
   ttl                 = 300
-  records             = [azurerm_private_endpoint.pe-proto-redis-weu-01.private_service_connection.0.private_ip_address]
+  records             = [azurerm_private_endpoint.pe-proto-redis-neu-01.private_service_connection.0.private_ip_address]
 }

@@ -51,7 +51,7 @@ variable "api_private_dns_zone_id" {
 #############################################################################
 #############################################################################
 
-resource "azurerm_service_plan" "appplan-proto-weu-01" {
+resource "azurerm_service_plan" "appplan-proto-neu-01" {
   name                = "appplan-${var.project}-${var.environment}-${var.region}-01"
   resource_group_name = var.resource_group
   location            = var.region
@@ -59,11 +59,11 @@ resource "azurerm_service_plan" "appplan-proto-weu-01" {
   sku_name            = var.appservice_sku_name
 }
 
-resource "azurerm_linux_web_app" "app-proto-weu-01" {
+resource "azurerm_linux_web_app" "app-proto-neu-01" {
   name                = "app-${var.project}-${var.environment}-${var.region}-01"
   resource_group_name = var.resource_group
   location            = var.region
-  service_plan_id     = azurerm_service_plan.appplan-proto-weu-01.id
+  service_plan_id     = azurerm_service_plan.appplan-proto-neu-01.id
   https_only          = true
 
   site_config {
@@ -83,13 +83,13 @@ resource "azurerm_linux_web_app" "app-proto-weu-01" {
   }
 }
 
-resource "azurerm_app_service_virtual_network_swift_connection" "appswift-proto-weu-01" {
-  app_service_id = azurerm_linux_web_app.app-proto-weu-01.id
+resource "azurerm_app_service_virtual_network_swift_connection" "appswift-proto-neu-01" {
+  app_service_id = azurerm_linux_web_app.app-proto-neu-01.id
   subnet_id      = var.int_api_subnet_id
 }
 
 #Private endpoint
-resource "azurerm_private_endpoint" "pe-proto-api-weu-01" {
+resource "azurerm_private_endpoint" "pe-proto-api-neu-01" {
   name                = "pe-${var.project}-api-${var.environment}-${var.region}-01"
   location            = var.region
   resource_group_name = var.resource_group
@@ -105,23 +105,23 @@ resource "azurerm_private_endpoint" "pe-proto-api-weu-01" {
 
   private_service_connection {
     name                           = "peconn-${var.project}-api-${var.environment}-${var.region}-01"
-    private_connection_resource_id = azurerm_linux_web_app.app-proto-weu-01.id
+    private_connection_resource_id = azurerm_linux_web_app.app-proto-neu-01.id
     subresource_names              = ["sites"]
     is_manual_connection           = false
   }
 }
 
-resource "azurerm_private_dns_a_record" "dnsa-proto-api-weu-01" {
+resource "azurerm_private_dns_a_record" "dnsa-proto-api-neu-01" {
   name                = "dnsa-${var.project}-api-${var.environment}-${var.region}-01"
   zone_name           = var.api_private_dns_zone_name
   resource_group_name = var.resource_group
   ttl                 = 300
-  records             = [azurerm_private_endpoint.pe-proto-api-weu-01.private_service_connection.0.private_ip_address]
+  records             = [azurerm_private_endpoint.pe-proto-api-neu-01.private_service_connection.0.private_ip_address]
 }
 
 #############################################################################
 #############################################################################
 
 output "api_app_id" {
-  value = azurerm_linux_web_app.app-proto-weu-01.id
+  value = azurerm_linux_web_app.app-proto-neu-01.id
 }

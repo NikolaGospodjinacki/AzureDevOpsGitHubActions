@@ -41,7 +41,7 @@ resource "random_integer" "ri" {
   max = 99999
 }
 
-resource "azurerm_cosmosdb_account" "cosmos-proto-weu-01" {
+resource "azurerm_cosmosdb_account" "cosmos-proto-neu-01" {
   name                 = "cosmos-${var.project}-${var.environment}-${var.region}-01"
   location             = var.region
   resource_group_name  = var.resource_group
@@ -89,17 +89,17 @@ resource "azurerm_cosmosdb_account" "cosmos-proto-weu-01" {
 
 }
 
-resource "azurerm_cosmosdb_mongo_database" "cosmosdb-proto-weu-01" {
+resource "azurerm_cosmosdb_mongo_database" "cosmosdb-proto-neu-01" {
   name                = "cosmosdb-${var.project}-${var.environment}-${var.region}-01"
   resource_group_name = var.resource_group
-  account_name        = azurerm_cosmosdb_account.cosmos-proto-weu-01.name
+  account_name        = azurerm_cosmosdb_account.cosmos-proto-neu-01.name
 }
 
 resource "azurerm_cosmosdb_mongo_collection" "employees" {
   name                = "employees"
-  resource_group_name = azurerm_cosmosdb_account.cosmos-proto-weu-01.resource_group_name
-  account_name        = azurerm_cosmosdb_account.cosmos-proto-weu-01.name
-  database_name       = azurerm_cosmosdb_mongo_database.cosmosdb-proto-weu-01.name
+  resource_group_name = azurerm_cosmosdb_account.cosmos-proto-neu-01.resource_group_name
+  account_name        = azurerm_cosmosdb_account.cosmos-proto-neu-01.name
+  database_name       = azurerm_cosmosdb_mongo_database.cosmosdb-proto-neu-01.name
 
   shard_key = "name"
 
@@ -114,7 +114,7 @@ resource "azurerm_cosmosdb_mongo_collection" "employees" {
 }
 
 #Private endpoint
-resource "azurerm_private_endpoint" "pe-proto-cosmos-weu-01" {
+resource "azurerm_private_endpoint" "pe-proto-cosmos-neu-01" {
   name                = "pe-${var.project}-cosmos-${var.environment}-${var.region}-01"
   location            = var.region
   resource_group_name = var.resource_group
@@ -129,29 +129,29 @@ resource "azurerm_private_endpoint" "pe-proto-cosmos-weu-01" {
 
   private_service_connection {
     name                           = "peconn-${var.project}-cosmos-${var.environment}-${var.region}-01"
-    private_connection_resource_id = azurerm_cosmosdb_account.cosmos-proto-weu-01.id
+    private_connection_resource_id = azurerm_cosmosdb_account.cosmos-proto-neu-01.id
     subresource_names              = ["MongoDB"]
     is_manual_connection           = false
   }
 }
 
-resource "azurerm_private_dns_a_record" "dnsa-proto-cosmos-weu-01" {
+resource "azurerm_private_dns_a_record" "dnsa-proto-cosmos-neu-01" {
   name                = "dnsa-${var.project}-cosmos-${var.environment}-${var.region}-01"
   zone_name           = var.cosmos_private_dns_zone_name
   resource_group_name = var.resource_group
   ttl                 = 300
-  records             = [azurerm_private_endpoint.pe-proto-cosmos-weu-01.private_service_connection.0.private_ip_address]
+  records             = [azurerm_private_endpoint.pe-proto-cosmos-neu-01.private_service_connection.0.private_ip_address]
 }
 
 #############################################################################
 #############################################################################
 
 output "cosmos_prim_connection_string" {
-  value     = azurerm_cosmosdb_account.cosmos-proto-weu-01.primary_key
+  value     = azurerm_cosmosdb_account.cosmos-proto-neu-01.primary_key
   sensitive = true
 }
 
 output "cosmos_sec_connection_string" {
-  value     = azurerm_cosmosdb_account.cosmos-proto-weu-01.secondary_key
+  value     = azurerm_cosmosdb_account.cosmos-proto-neu-01.secondary_key
   sensitive = true
 }

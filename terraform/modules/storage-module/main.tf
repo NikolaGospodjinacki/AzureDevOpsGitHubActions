@@ -28,7 +28,7 @@ variable "storage_private_dns_zone_name" {
 #############################################################################
 #############################################################################
 
-resource "azurerm_storage_account" "st-proto-weu-01" {
+resource "azurerm_storage_account" "st-proto-neu-01" {
   name                       = "st${var.project}${var.environment}${var.region}01"
   resource_group_name        = var.resource_group
   location                   = var.region
@@ -45,7 +45,7 @@ resource "azurerm_storage_account" "st-proto-weu-01" {
 }
 
 
-resource "azurerm_private_endpoint" "pe-proto-st-weu-01" {
+resource "azurerm_private_endpoint" "pe-proto-st-neu-01" {
   name                = "pe-${var.project}-st-${var.environment}-${var.region}-01"
   resource_group_name = var.resource_group
   location            = var.region
@@ -60,16 +60,16 @@ resource "azurerm_private_endpoint" "pe-proto-st-weu-01" {
 
   private_service_connection {
     name                           = "peconn-${var.project}-st-${var.environment}-${var.region}-01"
-    private_connection_resource_id = azurerm_storage_account.st-proto-weu-01.id
+    private_connection_resource_id = azurerm_storage_account.st-proto-neu-01.id
     subresource_names              = ["blob"]
     is_manual_connection           = false
   }
 }
 
-resource "azurerm_private_dns_a_record" "dnsa-proto-st-weu-01" {
+resource "azurerm_private_dns_a_record" "dnsa-proto-st-neu-01" {
   name                = "dnsa-${var.project}-st-${var.environment}-${var.region}-01"
   zone_name           = var.storage_private_dns_zone_name
   resource_group_name = var.resource_group
   ttl                 = 300
-  records             = [azurerm_private_endpoint.pe-proto-st-weu-01.private_service_connection.0.private_ip_address]
+  records             = [azurerm_private_endpoint.pe-proto-st-neu-01.private_service_connection.0.private_ip_address]
 }
