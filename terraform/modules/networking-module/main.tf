@@ -32,7 +32,10 @@ resource "azurerm_subnet" "snet-proto-int-api-neu-01" {
   virtual_network_name              = azurerm_virtual_network.vnet-proto-neu-01.name
   address_prefixes                  = ["10.100.10.64/29"]
   private_endpoint_network_policies = "Enabled"
-
+  service_endpoints = [
+    "Microsoft.AzureCosmosDB"
+  ]
+  
   delegation {
     name = "app-delegation"
 
