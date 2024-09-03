@@ -18,12 +18,6 @@ variable "environment" {
 
 
 #Database(MongoDB variables)
-variable "failover_region" {
-  type        = string
-  default     = "northeurope"
-  description = "failover region 2 for cosmosDB"
-}
-
 variable "cosmos_enable_free_tier" {
   type    = bool
   default = true
@@ -88,7 +82,6 @@ module "database-module" {
   source                       = "./modules/database-module"
   project                      = var.project
   region                       = var.region
-  failover_region              = var.failover_region
   environment                  = var.environment
   cosmos_enable_free_tier      = var.cosmos_enable_free_tier
   api_subnet_id                = module.networking-module.int_api_subnet_id

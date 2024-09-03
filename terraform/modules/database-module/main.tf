@@ -5,10 +5,6 @@ variable "region" {
   type = string
 }
 
-variable "failover_region" {
-  type = string
-}
-
 variable "environment" {
   type = string
 }
@@ -74,11 +70,6 @@ resource "azurerm_cosmosdb_account" "cosmos-proto-weu-01" {
   geo_location {
     location          = var.region
     failover_priority = 1
-  }
-
-  geo_location {
-    location          = var.failover_region
-    failover_priority = 0
   }
 
   virtual_network_rule {
