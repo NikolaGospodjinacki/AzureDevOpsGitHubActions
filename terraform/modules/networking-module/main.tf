@@ -35,7 +35,7 @@ resource "azurerm_subnet" "snet-proto-int-api-neu-01" {
   service_endpoints = [
     "Microsoft.AzureCosmosDB"
   ]
-  
+
   delegation {
     name = "app-delegation"
 
@@ -55,11 +55,6 @@ resource "azurerm_subnet" "snet-proto-api-neu-01" {
 
   delegation {
     name = "app-delegation"
-
-    service_delegation {
-      name    = "Microsoft.Web/serverFarms"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
-    }
   }
 }
 
