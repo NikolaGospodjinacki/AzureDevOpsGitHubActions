@@ -49,7 +49,9 @@ resource "azurerm_cosmosdb_account" "cosmos-proto-neu-01" {
   kind                 = "MongoDB"
   mongo_server_version = "4.0"
 
+  public_network_access_enabled     = false
   is_virtual_network_filter_enabled = true
+  network_acl_bypass_ids            = []
   // set ip_range_filter to allow azure services (0.0.0.0) and azure portal.
   // https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-firewall#allow-requests-from-the-azure-portal
   // https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-firewall#allow-requests-from-global-azure-datacenters-or-other-sources-within-azure
