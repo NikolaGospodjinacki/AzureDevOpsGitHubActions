@@ -91,6 +91,8 @@ resource "azurerm_cosmosdb_account" "cosmos-proto-weu-01" {
   #Migration of Periodic to Continuous is one-way, changing Continuous to Periodic forces a new resource to be created.
   backup {
     type = "Periodic"
+    storage_redundancy = "Local"
+    interval_in_minutes = "1440"
   }
 
 }

@@ -192,7 +192,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dnslink-proto-redis-we
   resource_group_name   = var.resource_group
   private_dns_zone_name = azurerm_private_dns_zone.dnszone-proto-redis-weu-01.name
   virtual_network_id    = azurerm_virtual_network.vnet-proto-weu-01.id
-  registration_enabled  = true
 }
 
 resource "azurerm_private_dns_zone" "dnszone-proto-api-weu-01" {
@@ -205,7 +204,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dnslink-proto-api-weu-
   resource_group_name   = var.resource_group
   private_dns_zone_name = azurerm_private_dns_zone.dnszone-proto-api-weu-01.name
   virtual_network_id    = azurerm_virtual_network.vnet-proto-weu-01.id
-  registration_enabled  = true
 }
 
 resource "azurerm_private_dns_zone" "dnszone-proto-cosmos-weu-01" {
@@ -218,7 +216,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dnslink-proto-cosmos-w
   resource_group_name   = var.resource_group
   private_dns_zone_name = azurerm_private_dns_zone.dnszone-proto-cosmos-weu-01.name
   virtual_network_id    = azurerm_virtual_network.vnet-proto-weu-01.id
-  registration_enabled  = true
 }
 
 resource "azurerm_private_dns_zone" "dnszone-proto-storage-weu-01" {
@@ -231,7 +228,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dnslink-proto-storage-
   resource_group_name   = var.resource_group
   private_dns_zone_name = azurerm_private_dns_zone.dnszone-proto-storage-weu-01.name
   virtual_network_id    = azurerm_virtual_network.vnet-proto-weu-01.id
-  registration_enabled  = true
 }
 
 #############################################################################

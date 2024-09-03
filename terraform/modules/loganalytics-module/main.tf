@@ -26,7 +26,7 @@ resource "azurerm_log_analytics_workspace" "log-proto-weu-01" {
   location            = var.region
   resource_group_name = var.resource_group
   sku                 = "PerGB2018"
-  retention_in_days   = 7
+  retention_in_days   = 30
 }
 
 resource "azurerm_monitor_diagnostic_setting" "monitor-proto-weu-01" {
