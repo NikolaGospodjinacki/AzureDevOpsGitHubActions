@@ -138,13 +138,13 @@ resource "azurerm_private_endpoint" "pe-proto-cosmos-neu-01" {
   }
 }
 
-resource "azurerm_private_dns_a_record" "dnsa-proto-cosmos-neu-01" {
-  name                = "dnsa-${var.project}-cosmos-${var.environment}-${var.region}-01"
-  zone_name           = var.cosmos_private_dns_zone_name
-  resource_group_name = var.resource_group
-  ttl                 = 300
-  records             = [azurerm_private_endpoint.pe-proto-cosmos-neu-01.private_service_connection.0.private_ip_address]
-}
+# resource "azurerm_private_dns_a_record" "dnsa-proto-cosmos-neu-01" {
+#   name                = "dnsa-${var.project}-cosmos-${var.environment}-${var.region}-01"
+#   zone_name           = var.cosmos_private_dns_zone_name
+#   resource_group_name = var.resource_group
+#   ttl                 = 300
+#   records             = [azurerm_private_endpoint.pe-proto-cosmos-neu-01.private_service_connection.0.private_ip_address]
+# }
 
 #############################################################################
 #############################################################################
