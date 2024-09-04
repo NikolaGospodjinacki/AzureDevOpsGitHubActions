@@ -88,23 +88,60 @@ resource "azurerm_network_security_group" "nsg-proto-api-neu-01" {
   resource_group_name = var.resource_group
 
   security_rule {
-    name                       = "DenyAllInbound"
+    name                       = "AllowInboundHome"
     description                = ""
     priority                   = 1000
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "*"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = "109.245.101.212"
+    destination_address_prefix = "*"
+  }
+
+    security_rule {
+    name                       = "AllowInboundAzDevOps"
+    description                = ""
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = "*"
+    source_address_prefix      = "AzureDevOps"
     destination_address_prefix = "*"
   }
 }
 
-resource "azurerm_subnet_network_security_group_association" "nsgassoc-proto-api-neu-02" {
+resource "azurerm_subnet_network_security_group_association" "nsgassoc-proto-api-neu-01" {
   subnet_id                 = azurerm_subnet.snet-proto-api-neu-01.id
   network_security_group_id = azurerm_network_security_group.nsg-proto-api-neu-01.id
 }
+
+# resource "azurerm_network_security_group" "nsg-proto-int-api-neu-01" {
+#   name                = "nsg-${var.project}-int-api-${var.environment}-${var.region}-01"
+#   location            = var.region
+#   resource_group_name = var.resource_group
+
+#     security_rule {
+#     name                       = "AllowInboundAzDevOps"
+#     description                = ""
+#     priority                   = 1001
+#     direction                  = "Inbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "*"
+#     source_address_prefix      = "AzureDevOps"
+#     destination_address_prefix = "*"
+#   }
+# }
+
+# resource "azurerm_subnet_network_security_group_association" "nsgassoc-proto-int-api-neu-01" {
+#   subnet_id                 = azurerm_subnet.snet-proto-int-api-neu-01.id
+#   network_security_group_id = azurerm_network_security_group.nsg-proto-int-api-neu-01.id
+# }
 
 resource "azurerm_network_security_group" "nsg-proto-redis-neu-01" {
   name                = "nsg-${var.project}-redis-${var.environment}-${var.region}-01"
@@ -112,15 +149,28 @@ resource "azurerm_network_security_group" "nsg-proto-redis-neu-01" {
   resource_group_name = var.resource_group
 
   security_rule {
-    name                       = "AllowAllInbound"
+    name                       = "AllowAppService"
     description                = ""
     priority                   = 1000
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "*"
+    protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
+    destination_port_range     = "6379"
+    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes
+    destination_address_prefix = "*"
+  }
+
+    security_rule {
+    name                       = "AllowAppServiceHTTPS"
+    description                = ""
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes
     destination_address_prefix = "*"
   }
 }
@@ -136,15 +186,15 @@ resource "azurerm_network_security_group" "nsg-proto-cosmos-neu-01" {
   resource_group_name = var.resource_group
 
   security_rule {
-    name                       = "AllowAllInbound"
-    description                = ""
+    name                       = "AllowAPISubnet"
+    description                = "Allow CosmosDb access from API subnet"
     priority                   = 1000
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "*"
+    protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = "*"
+    source_address_prefix      = azurerm_subnet.snet-proto-api-neu-01.address_prefixes
     destination_address_prefix = "*"
   }
 }
@@ -160,15 +210,15 @@ resource "azurerm_network_security_group" "nsg-proto-storage-neu-01" {
   resource_group_name = var.resource_group
 
   security_rule {
-    name                       = "AllowAllInbound"
-    description                = ""
+    name                       = "AllowAppService"
+    description                = "Allow App service to talk to storage"
     priority                   = 1000
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "*"
     source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes
     destination_address_prefix = "*"
   }
 }
