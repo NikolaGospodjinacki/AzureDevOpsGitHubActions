@@ -157,7 +157,7 @@ resource "azurerm_network_security_group" "nsg-proto-redis-neu-01" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "6379"
-    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes
+    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes[0]
     destination_address_prefix = "*"
   }
 
@@ -170,7 +170,7 @@ resource "azurerm_network_security_group" "nsg-proto-redis-neu-01" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes
+    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes[0]
     destination_address_prefix = "*"
   }
 }
@@ -194,7 +194,7 @@ resource "azurerm_network_security_group" "nsg-proto-cosmos-neu-01" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = azurerm_subnet.snet-proto-api-neu-01.address_prefixes
+    source_address_prefix      = azurerm_subnet.snet-proto-api-neu-01.address_prefixes[0]
     destination_address_prefix = "*"
   }
 }
@@ -218,7 +218,7 @@ resource "azurerm_network_security_group" "nsg-proto-storage-neu-01" {
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes
+    source_address_prefix      = azurerm_subnet.snet-proto-int-api-neu-01.address_prefixes[0]
     destination_address_prefix = "*"
   }
 }

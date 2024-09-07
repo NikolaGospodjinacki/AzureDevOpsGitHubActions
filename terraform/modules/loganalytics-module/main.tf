@@ -30,7 +30,7 @@ resource "azurerm_log_analytics_workspace" "log-proto-neu-01" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "monitor-proto-neu-01" {
-  name                       = "app-${var.project}-${var.environment}-${var.region}-01:"
+  name                       = "app-${var.project}-${var.environment}-${var.region}-01"
   target_resource_id         = var.api_app_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.log-proto-neu-01.id
 
