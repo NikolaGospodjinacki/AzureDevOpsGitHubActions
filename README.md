@@ -15,6 +15,17 @@
 - To showcase understanding of **linux commands** through their usage in the CICD pipeline
 - To showcase basic understanding of **container technologies (docker)**, used in Azure app service
 
+### Possible additions and points of improvement
+
+1. Add frontend app service and lock down backend API app service to only allow traffic from the frontend app
+2. Use managed identity instead of connection strings for connecting to the database and other resources where possible
+3. Pull secrets from the Azure key vault with a private endpoint
+4. Add additional steps to pipeline for adding and removing nsg security rules
+5. Add a terraform variable for app service IPs for cloudflare and similar integrations
+6. Put subnet address ranges into variables
+7. Add custom domain settings and related to app service
+8. Setup backups, failovers and related for the database
+
 ### Setup
 Project setup section will attempt to capture every step needed as of September 2024 to get a new project that uses Azure, Terraform and GitHub actions going from scratch
 
@@ -122,13 +133,3 @@ Helpful links for the setup process:
 - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/private-link-and-dns-integration-at-scale (Azure private endpoint and dns zone integration)
 - https://github.com/epomatti/azure-terraform-private-endpoints (Azure private endpoints in Terraform)
 --------------------------------------------------------------------------------
-### Possible additions and points of improvement
-
-1. Add frontend app service and lock down backend API app service to only allow traffic from the frontend app
-2. Use managed identity instead of connection strings for connecting to the database and other resources where possible
-3. Pull secrets from the Azure key vault with a private endpoint
-4. Add additional steps to pipeline for adding and removing nsg security rules
-5. Add a terraform variable for app service IPs for cloudflare and similar integrations
-6. Put subnet address ranges into variables
-7. Add custom domain settings and related to app service
-8. Setup backups, failovers and related for the database
