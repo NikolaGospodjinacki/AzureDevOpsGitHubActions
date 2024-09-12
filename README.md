@@ -1,8 +1,8 @@
 # Azure DevOps infrastructure provisioning
 ### Technologies used:
-**Azure** (cloud provider)
-**Terraform** (Infrastructure as code)
-**GitHub Actions** (CICD)
+- **Azure** (cloud provider)
+- **Terraform** (Infrastructure as code)
+- **GitHub Actions** (CICD)
 
 ### Infrastructructure diagram
 ![plot](./Diagram.png)
