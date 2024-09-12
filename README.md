@@ -25,6 +25,7 @@
 6. Put subnet address ranges into variables
 7. Add custom domain settings and related to app service
 8. Setup backups, failovers and related for the database
+9. Security improvements
 
 ### Setup
 Project setup section will attempt to capture every step needed as of September 2024 to get a new project that uses Azure, Terraform and GitHub actions going from scratch
